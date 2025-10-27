@@ -1,0 +1,46 @@
+#cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3vh;
+    width: 100%;
+}
+
+.card {
+    background-color: #f037a61e;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden !important;
+}
+
+.card-body {
+    text-align: center;
+    padding-right: 5vh;
+    padding-left: 5vh;
+    font-weight: 500;
+    font-size: 100%;
+}
+
+@font-face {
+    font-family: "Urban";
+    src: url(../fonts/Urban\ Shadow\ Sans\ Serif.otf);
+}
+
+.card-title {
+    font-family: "Urban";
+    padding-top: 1vh;
+    color: #1E3163;
+    font-size: 200%;
+}
+
+.card .card-img-wrapper {
+    height: 200px !important; 
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+.card .card-img-top {
+    width: 100% !important; 
+    height: 100% !important; 
+    object-fit: cover !important; 
+}

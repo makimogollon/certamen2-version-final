@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Mi Cuenta{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'core/css/mi_cuenta.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    
+    <div class="mb-5 text-center p-3" style="background-color: #f037a61e; border-radius: 8px;">
+        <h1 class="display-4">Mi Cuenta</h1>
+        <p class="lead" style="font-weight: 500;">Hola, <span style="color: #F037A5;">{{ user.username }}</span></p>
+    </div>
+
+    <h2 class="mb-4 text-center">Eventos Inscritos</h2>
+
+    {% include 'core/mensajes.html' %} 
+
+    {% if inscripciones %}
+        <div id="lista-reservas" class="list-group">
+            
+            {% for inscripcion in inscripciones %}
+            {% with evento=inscripcion.evento %} 
+            
+            <div class="lista-item d-flex align-items-center mb-3 p-3 shadow-sm rounded">
+                
+                <div class="me-4">
+                    {% if evento.imagen %}
+                        <img src="{{ evento.imagen.url }}" class="img-fluid rounded-start" alt="{{ evento.titulo }}" style="width: 100px; height: 100px; object-fit: cover;">
+                    {% else %}
+                        <img src="{% static 'core/img/default_event.jpg' %}" class="img-fluid rounded-start" alt="Evento Default" style="width: 100px; height: 100px; object-fit: cover;">
+                    {% endif %}
+                </div>
+
+                <div class="flex-grow-1">
+                    <h5 class="mb-1" style="color: #1E3163;">{{ evento.titulo }}</h5>
+                    <small class="text-muted">Inscrito el: {{ inscripcion.fecha_inscripcion|date:"d M Y" }}</small>
+                    <p class="mb-0">
+                        <span class="badge bg-secondary me-2">{{ evento.fecha|date:"d M Y" }}</span>
+                        <span class="badge bg-secondary me-2">{{ evento.hora|time:"H:i" }}</span>
+                        <span class="badge bg-secondary">{{ evento.lugar }}</span>
+                    </p>
+                </div>
+                
+                <div class="ms-auto">
+                    <a href="{% url 'anular_inscripcion' inscripcion.id %}" 
+                       class="btn btn-danger"
+                       onclick="return confirm('¿Estás seguro de anular tu reserva para {{ evento.titulo }}?');">
+                         Anular Reserva
+                    </a>
+                </div>
+            </div>
+            
+            {% endwith %}
+            {% endfor %}
+            
+        </div>
+    {% else %}
+    
+    <div class="col-12 text-center my-5">
+        <p class="alert alert-info py-4">Aún no tienes eventos inscritos. ¡Visita la sección <a href="{% url 'eventos' %}">Eventos</a> para registrarte!</p>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}

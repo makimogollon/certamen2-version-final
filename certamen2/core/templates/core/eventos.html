@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Eventos Disponibles{% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-5">
+    <h1 class="text-center mb-4 mt-5">Próximos Eventos</h1>
+    
+    <div id="cards">
+        <div class="row justify-content-center g-5">
+            
+            {% for evento in eventos %}
+            
+            <div class="col-sm-12 col-md-6 col-xl-4 pt-xl-4 pt-md-4 pt-sm-4">
+                <div class="card h-100">
+                    
+                    <div class="card-img-wrapper">
+                        {% if evento.imagen %}
+                            <img src="{{ evento.imagen.url }}" class="card-img-top" alt="{{ evento.titulo }}">
+                        {% else %}
+                            <img src="{% static 'core/img/default_event.jpg' %}" class="card-img-top" alt="Evento por defecto">
+                        {% endif %}
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="card-title">{{ evento.titulo }}</div>
+                        <p> 
+                            {{ evento.fecha|date:"d \d\e F \d\e Y" }} — {{ evento.hora|time:"H:i \h." }}
+                            <br> {{ evento.lugar }}
+                            <br> 
+                            {% if evento.valor %}${{ evento.valor }}{% else %}Entrada liberada{% endif %}
+                            
+                            <br> Plazas disponibles: {{ evento.plazas_disponibles }}
+                        </p>
+                        
+                        {% if user.is_authenticated %}
+                            
+                            <div class="evento-acciones">
+                                <form method="POST" action="{% url 'inscribirse' evento.id %}">
+                                    {% csrf_token %} 
+                                    <button type="submit" class="btn btn-primary" {% if evento.plazas_disponibles <= 0 %} disabled {% endif %}>
+                                        {% if evento.plazas_disponibles <= 0 %} Agotado {% else %} ¡Inscríbete Ahora! {% endif %}
+                                    </button>
+                                </form>
+                            </div>
+                            
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-outline-secondary mt-3">Inicia sesión para inscribirte</a>
+                        {% endif %}
+                        </div> 
+                </div>
+            </div>
+            
+            {% empty %}
+            
+            <div class="col-12 text-center my-5">
+                <p class="alert alert-info py-4">No hay eventos disponibles por el momento. ¡Vuelve pronto!</p>
+            </div>
+            
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+footer {
+    background-color: #F037A5;
+    padding: 2vh;
+    width: 100%;
+}
+
+footer h1, footer h2, footer p {
+    color: black;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+footer h2 {
+    padding-top: 6%;
+    font-size: large;
+}
+
+footer h1 {
+    font-size: large;
+    padding-top: 3%;
+}
+
+footer p {
+    font-size: medium;
+    font-weight: 400;
+    padding: 0 15vh;
+}
+
+#redes {
+    display: flex;
+    gap: 5vh;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+}
+
+#redes img {
+    height: 5vh;
+}

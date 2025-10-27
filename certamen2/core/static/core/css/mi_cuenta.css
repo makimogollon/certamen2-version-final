@@ -1,0 +1,22 @@
+.lista-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    transition: all 0.3s;
+}
+
+.lista-item:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lista-item img {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover;
+}
+
+.display-4 {
+    color: #1E3163;
+    font-weight: 700;
+}

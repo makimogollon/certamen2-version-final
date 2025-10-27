@@ -1,0 +1,45 @@
+{% load static %}
+
+<header>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img id="logo" src="{% static 'core/img/icons8-creatividad-64.png' %}" alt="logo smart events">
+      </a>
+      <div id="titulo-header">SMART EVENTS</div>
+
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion">
+        <img src="{% static 'core/img/icons8-menú-24.png' %}" width="35" alt="boton de menu"> 
+      </button>
+
+      <div class="collapse navbar-collapse" id="navegacion">
+        <ul id="lista" class="navbar-nav">
+          <li class="item"><a class="nav-link active" href="{% url 'index' %}">Inicio</a></li>
+          <li class="item"><a class="nav-link" href="{% url 'eventos' %}">Eventos</a></li>
+
+          <!-- REGISTRARSE O INICIAR SESION Y CERRAR SESION -->
+
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+                <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
+                    {% csrf_token %} 
+                </form>
+                
+                <a href="{% url 'logout' %}" 
+                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                  class="nav-link">
+                    Cerrar Sesión
+                </a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'mi_cuenta' %}">Mi cuenta</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'registro_usuario' %}">Registrarse</a></li>
+          {% endif %}
+
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

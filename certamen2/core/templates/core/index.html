@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Inicio - Smart Events{% endblock %}
+
+{% block content %}
+<section>
+  <div class="hero"> 
+
+    {% if evento_destacado %}
+      
+      <div class="hero-content"> 
+        
+        <h1>{{ evento_destacado.titulo }}</h1>
+        <div class="event-details">
+            {% if evento_destacado.valor and evento_destacado.valor > 0 %}
+                <h4>Valor: ${{ evento_destacado.valor }}</h4>
+            {% else %}
+                <h4>Entrada Liberada</h4>
+            {% endif %}
+            
+            <p>{{ evento_destacado.fecha|date:"j \d\e F \d\e Y" }} — {{ evento_destacado.hora }}</p>
+            
+            <p>
+                <img src="{% static 'core/img/ubicacion.png' %}" alt="ubicacion" class="ubicacion-icon">
+                {{ evento_destacado.lugar }}
+            </p>
+        </div>
+        
+        <a href="{% url 'eventos' %}" class="btn btn-primary mt-3 btn-lg" id="boton-cta">
+            ¡Inscríbete Aquí!
+        </a>
+        
+      </div>
+      
+      {% if evento_destacado.imagen %}
+        <img src="{{ evento_destacado.imagen.url }}" alt="{{ evento_destacado.titulo }}" class="hero-image-overlay">
+      {% else %}
+        <img src="{% static 'core/img/evento_default.webp' %}" alt="Evento Default" class="hero-image-overlay">
+      {% endif %}
+
+
+    {% else %}
+      <div class="hero-background"> 
+        <h1>EVENTOS PRÓXIMAMENTE</h1>
+        <p class="lead">NO HAY EVENTOS DISPONIBLES POR EL MOMENTO. VUELVE PRONTO!</p>
+      </div>
+
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
